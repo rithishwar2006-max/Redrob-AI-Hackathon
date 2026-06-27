@@ -1,0 +1,70 @@
+# Redrob Hackathon — Submission Metadata Template
+
+# ============================================================================
+# Team identity
+# ============================================================================
+team_name: "Dark Knight"  
+
+primary_contact:
+  name: "Rithishwar.S"
+  email: "rithishwar2006@gmail.com"   
+  phone: "+91-6382297794"           
+
+team_members:
+  - name: "Rithishwar.S"
+    email: "rithishwar2006@gmail.com"
+    role: "AI Engineer"             
+
+# ============================================================================
+# Code and reproducibility
+# ============================================================================
+github_repo: "https://github.com/rithishwar2006-max/Redrob-AI-Hackathon"
+
+sandbox_link: "https://colab.research.google.com/drive/1FEm-esP2lhejRhkDnmSyq4-OeS7vSb63?usp=sharing"
+# platform (Colab).
+
+reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./submission.csv"
+# The single command that produces submission.csv from candidates.jsonl.
+
+
+# ============================================================================
+# Compute environment
+# ============================================================================
+compute:
+  platform: "Asus TUF Gaming A15"              
+  cpu_cores: 8                                  # Number of CPU cores used
+  ram_gb: 16                                    # Available RAM in GB
+  python_version: "3.13.14"                     # Exact version used
+  os: "Windows 11"                               
+  uses_gpu_for_inference: false                 
+  has_network_during_ranking: false             #no API calls during ranking
+  pre_computation_required: false               
+  pre_computation_time_minutes: 0             
+
+# ============================================================================
+# AI tools declaration
+# ============================================================================
+ai_tools_used:
+  - "Gemini"
+  - "Claude"
+
+ai_usage_summary: |
+  Used Gemini and Claude as expert pair programmers for architectural brainstorming, implementing strict regex word-boundary safety, designing extraction primitives, and debugging. No LLM APIs are called during execution and no candidate data was fed into an LLM during runtime.
+
+# ============================================================================
+# Approach summary
+# ============================================================================
+methodology_summary: |
+  Our system implements a deterministic heuristic ranking engine. To respect the strict 5-minute CPU constraint without sacrificing semantic quality, we avoided slow LLM API calls and instead built dense, word-boundary-safe taxonomies. 
+  The pipeline flows through explicit stages: Hard Gates → CRI → Raw Fit Score → Calibration → Confidence Multiplier → Final Ranking. We prioritized substance over keyword density by restricting evidence extraction strictly to title-consistent career history, effectively penalizing "title-chasers" and GenAI-wrapper profiles. 
+  During calibration, the system dynamically weights experience by recency and rigorously checks for disclaimed ownership (e.g., "deployment was handled by the platform team") to eliminate false positives. Finally, we smooth scores using a multi-factor confidence interval. The system naturally avoids honeypot profiles through title-consistency checks and substance requirements. We iterated extensively using real diagnostic data, resulting in a robust, product-engineering-focused ranker.
+
+# ============================================================================
+# Declarations
+# ============================================================================
+declarations:
+  read_submission_spec: true        # I have read submission_spec.md in full
+  code_is_original_work: true       # My code is my team's original work (using AI as a tool is fine)
+  no_collusion: true                # I have not coordinated my submission with other teams
+  honeypot_check_done: true         # Checked for honeypots conceptually via substance/consistency gates
+  reproduction_tested: true         # I have tested that my reproduce_command runs end-to-end
