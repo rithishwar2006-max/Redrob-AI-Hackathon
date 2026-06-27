@@ -1,0 +1,3 @@
+# No external dependencies required.
+# Built entirely with Python standard libraries for maximum efficiency and zero-dependency deployment.
+# Requires Python 3.9+ (for str.removeprefix and date.fromisoformat reliability)
